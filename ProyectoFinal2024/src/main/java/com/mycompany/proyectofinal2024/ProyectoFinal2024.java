@@ -15,9 +15,7 @@ import java.util.Scanner;
 public class ProyectoFinal2024 {
 
     public static void main(String[] args) {
-      Scanner scanner = new Scanner(System.in);
-        LibroController libroController = new LibroController();
-        libroController.update(principito 12345);
-        
+      
+      
     }
 }

@@ -1,15 +1,18 @@
 
 package modelo;
 
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Usuario {
-    private int id;
     private String nombre;
     private String apellido;
     private String email;
     private String password;
-    private int telefono;
-    private int dpi;
+    private String telefono;
+    private String dpi;
     private String direccion;
     private int roleID;
 }
