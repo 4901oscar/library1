@@ -5,79 +5,97 @@
 package dao;
 
 import dbconnection.Conexion;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Usuario;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
  * @author Oscar Rivera
  */
 public class UsuarioDAO {
-    
+
     private PreparedStatement preparedStatement = null;
     private final String SELECT_FROM_USUARIOS = "SELECT * FROM usuarios";
-    private final String INSERT_INTO_USUARIOS = "INSERT INTO usuarios (nombre,apellido,email,password,telefono,dpi,direccion,rol_id) VALUES(?,?,?,?,?,?,?,?)";
-    private final String UPDATE_USUARIO = "UPDATE usuarios SET cantidad_disponible = cantidad_disponible - 1 WHERE isbn = ?";
-    private final String UPDATE_LIBRO_DEVOLUCION = "UPDATE libros SET cantidad_disponible = cantidad_disponible + 1 WHERE isbn = ?";
-    private final String DELETE_FROM_LIBROS = "DELETE FROM libros WHERE isbn = ?";
+   // private final String SELECT_USUARIOS_ACCESO = "SELECT * FROM usuarios WHERE email = ? AND contraseña = ?";
+    private final String INSERT_USUARIOS = "INSERT INTO users (nombre, apellido,email,password,telefono,dpi,direccion,roleID) VALUES(?,?,?,?,?,?,?,?)";
+    private final String UPDATE_USUARIOS = "UPDATE usuario SET nombre = ?, apellido = ?,email = ?, password = ?, telefono = ?, dpi = ?, direccion = ?, roleID = ? WHERE   idUser = ?";
+    private final String DELETE_USER = "DELETE FROM usuario WHERE idUser = ?";
 
-    public Usuario<Usuario> listarUsuario(){
-        List<Usuario> usuarios = new ArrayList<>();
+   public List<Usuario> readAll() {
+        List<Usuario> listaDeUsuarios = new ArrayList<>();
         try {
             preparedStatement = Conexion.getConnection().prepareStatement(SELECT_FROM_USUARIOS);
             var resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Usuario usuario = new Usuario();
-                libro.setIsbn(resultSet.getInt("isbn"));
-                libro.setTitulo(resultSet.getString("titulo"));
-                libro.setAutor(resultSet.getString("autor"));
-                libro.setAnioPublicacion(resultSet.getInt("anio_publicacion"));
-                libro.setEditorial(resultSet.getString("editorial"));
-                libro.setCantidadDisponible(resultSet.getInt("cantidad_disponible"));
-                usuario.add(usuario);
+                usuario.setId(resultSet.getInt("id"));
+                usuario.setNombre(resultSet.getString("nombre"));
+                usuario.setApellido(resultSet.getString("apellido"));
+                usuario.setTelefono(resultSet.getString("telefono"));
+                usuario.setDpi(resultSet.getString("dpi"));
+                usuario.setEmail(resultSet.getString("email"));
+                usuario.setPassword(resultSet.getString("password"));
+                usuario.setDireccion(resultSet.getString("direccion"));
+                usuario.setRoleID(resultSet.getInt("rol_id"));
+                listaDeUsuarios.add(usuario);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return libros;
+        } catch (SQLException e) {
         }
-        return libros;
+        return listaDeUsuarios;
     }
 
-    public boolean guardarLibro(Libro libro) {
+    public void save(Usuario usuario) {
         try {
-            preparedStatement = Conexion.getConnection().prepareStatement(INSERT_INTO_LIBROS);
-            preparedStatement.setInt(1, libro.getIsbn());
-            preparedStatement.setString(2, libro.getTitulo());
-            preparedStatement.setString(3, libro.getAutor());
-            preparedStatement.setString(4, libro.getEditorial());
-            preparedStatement.setInt(5, libro.getAnioPublicacion());
-            preparedStatement.setInt(6, libro.getCantidadDisponible());
+            preparedStatement = Conexion.getConnection().prepareStatement(INSERT_USUARIOS);
+            preparedStatement.setString(1, usuario.getNombre());
+            preparedStatement.setString(2, usuario.getApellido());
+            preparedStatement.setString(3, usuario.getEmail());
+            preparedStatement.setString(4, usuario.getPassword());
+            preparedStatement.setString(5, usuario.getTelefono());
+            preparedStatement.setString(6, usuario.getDpi());
+            preparedStatement.setString(7, usuario.getDireccion());
+            preparedStatement.setInt(8, usuario.getRoleID());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
+    public boolean delete(int id) {
+        try {
+            preparedStatement = Conexion.getConnection().prepareStatement(DELETE_USER);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+            
+        } catch (SQLException e) {
+        }return true;
+    }
+
+    public boolean update(Usuario usuario) {
+        try {
+            preparedStatement = Conexion.getConnection().prepareStatement(UPDATE_USUARIOS);
+            preparedStatement.setString(1, usuario.getNombre());
+            preparedStatement.setString(2, usuario.getApellido());
+            preparedStatement.setString(3, usuario.getTelefono());
+            preparedStatement.setString(4, usuario.getPassword());
+            preparedStatement.setString(5, usuario.getEmail());
+            preparedStatement.setInt(6, usuario.getId());
             preparedStatement.executeUpdate();
             return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        } catch (SQLException e) {
         }
+        return false;
     }
-
-    public boolean actualizarLibro(int isbn, String tipoSolicitud) {
-        try {
-            switch (tipoSolicitud) {
-                case "prestamo":
-                    preparedStatement = Conexion.getConnection().prepareStatement(UPDATE_LIBRO_PRESTAMO);
-                    break;
-                case "devolucion":
-                    preparedStatement = Conexion.getConnection().prepareStatement(UPDATE_LIBRO_DEVOLUCION);
-                    break;
-                default:
-                    break;
-            }
-            preparedStatement.setInt(1, isbn);
-            preparedStatement.executeUpdate();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+    
+    
+    
 }
+
+
+
+
+

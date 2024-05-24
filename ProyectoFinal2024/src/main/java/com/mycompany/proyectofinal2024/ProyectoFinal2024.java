@@ -4,6 +4,7 @@
 
 package com.mycompany.proyectofinal2024;
 
+import Controlador.InitInitialQueries;
 import Controlador.LibroController;
 import dbconnection.Conexion;
 import java.util.Scanner;
@@ -16,6 +17,6 @@ public class ProyectoFinal2024 {
 
     public static void main(String[] args) {
       
-      
+      InitInitialQueries.init();
     }
 }

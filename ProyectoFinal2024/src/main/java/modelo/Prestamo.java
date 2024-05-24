@@ -5,17 +5,25 @@
 package modelo;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class Prestamo {
+    public static List<Prestamo> listaDePrestamos = new ArrayList<>();
     private int id;
-    private String isbn;
+    private int isbn;
     private int usuarioID;
     private Date fechaPrestamo;
     private Date fechaDevolucion;
-    private Date fechaDevolucionEstimada;
+    private Date fechaVencimiento;
+    private Double multa;
+    
+    public Prestamo(){
+        this.multa = 0.0;
+    }
     
 }
