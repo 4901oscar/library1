@@ -6,6 +6,7 @@ package Controlador;
 
 import Interface.CRUD;
 import dao.UsuarioDAO;
+import java.util.Collection;
 import java.util.List;
 import modelo.Usuario;
 
@@ -80,6 +81,12 @@ public class UsuarioController implements CRUD<Usuario>{
     public Usuario logIn(String email, String password){
     return Usuario.listaDeUsarios.stream()
             .filter(usuario->usuario.getEmail().equalsIgnoreCase(email)&& usuario.getPassword().equals(password))
+            .findFirst()
+            .orElse(null);
+    }
+
+    public Usuario buscarUs(int idUsuario){
+    return Usuario.listaDeUsarios.stream().filter(U->U.getId()==idUsuario)
             .findFirst()
             .orElse(null);
     }

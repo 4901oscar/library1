@@ -18,6 +18,7 @@ import modelo.Prestamo;
  * @author Oscar Rivera
  */
 public class PrestamoDao {
+
     private PreparedStatement preparedStatement = null;
     private final String SELECT_FROM_PRESTAMO = "SELECT * FROM prestamos";
     private final String INSERT_INTO_PRESTAMO = "INSERT INTO prestamos (usuario_id, libro_isbn, fecha_prestamo, fecha_vencimiento) VALUES (?, ?, ?, ?)";
@@ -60,7 +61,7 @@ public class PrestamoDao {
         }
     }
 
-    public void actualizarDevolucion(int prestamoID) {
+    public boolean update(int prestamoID) {
         Date fechaDevolucion = new Date(System.currentTimeMillis());
         Prestamo prestamo = Prestamo.listaDePrestamos.stream()
                 .filter(p -> p.getId() == prestamoID)
@@ -84,8 +85,11 @@ public class PrestamoDao {
             preparedStatement.setDouble(2, prestamo.getMulta());
             preparedStatement.setInt(3, prestamoID);
             preparedStatement.executeUpdate();
+            return true;
         } catch (SQLException e) {
+            return false;
         }
+
     }
 
 }

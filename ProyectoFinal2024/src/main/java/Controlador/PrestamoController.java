@@ -4,47 +4,45 @@
  */
 package Controlador;
 
+import Interface.CRUD;
+import dao.PrestamoDao;
 import java.sql.Date;
 import java.util.List;
+import modelo.Prestamo;
 
 
-public class PrestamoController implements CRUDAbstracto<Prestamo, Integer> {
-     private PrestamoDAO prestamoDAO = new PrestamoDAO();
-    @Override
-    public List<Prestamo> executeReadAll() {
-        return prestamoDAO.readAll();
-    }
-
-    @Override
-    public Prestamo executeCreate(Prestamo entidad) {
-        prestamoDAO.save(entidad);
-        return entidad;
-    }
-
-    @Override
-    public Prestamo executeRead(Integer integer) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean executeUpdate(Integer integer) {
-       throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void executeDelete(Integer integer) {
-        throw new UnsupportedOperationException();
-    }
+public class PrestamoController implements CRUD<Prestamo> {
+     private PrestamoDao prestamoDAO = new PrestamoDao();
 
     public boolean verificarPrestamosTardios(int isbn, int usuarioID) {
 
         return Prestamo.listaDePrestamos.stream()
-                .anyMatch(prestamo -> prestamo.getUsuarioID() == usuarioID && prestamo.getLibroISBN() == isbn
+                .anyMatch(prestamo -> prestamo.getUsuarioID() == usuarioID && prestamo.getIsbn() == isbn
                         && prestamo.getFechaVencimiento().before(new Date(System.currentTimeMillis()))
                         && prestamo.getFechaDevolucion()==null);
     }
 
     public void actualizarDevolucion(int id) {
-        prestamoDAO.actualizarDevolucion(id);
+        prestamoDAO.update(id);
+    }
+
+    @Override
+    public void create(Prestamo obj) {
+        prestamoDAO.save(obj);
+    }
+
+    @Override
+    public boolean update(Prestamo obj) {
+        return prestamoDAO.update(obj.getId()) ;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Prestamo> list() {
+        return prestamoDAO.readAll();
     }
 }

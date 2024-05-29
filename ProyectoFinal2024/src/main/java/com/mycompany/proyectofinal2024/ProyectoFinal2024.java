@@ -5,9 +5,8 @@
 package com.mycompany.proyectofinal2024;
 
 import Controlador.InitInitialQueries;
-import Controlador.LibroController;
-import dbconnection.Conexion;
-import java.util.Scanner;
+import forms.LoginAcces;
+
 
 /**
  *
@@ -18,5 +17,8 @@ public class ProyectoFinal2024 {
     public static void main(String[] args) {
       
       InitInitialQueries.init();
+      LoginAcces loginForm = new LoginAcces();
+        loginForm.setVisible(true);
+        
     }
 }

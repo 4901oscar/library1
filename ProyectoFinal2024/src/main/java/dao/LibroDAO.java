@@ -25,7 +25,7 @@ public class LibroDAO {
                 libro.setIsbn(resultSet.getInt("isbn"));
                 libro.setTitulo(resultSet.getString("titulo"));
                 libro.setAutor(resultSet.getString("autor"));
-                libro.setAnioPublicacion(resultSet.getInt("anio_publicacion"));
+                libro.setAnioPublicacion(resultSet.getString("anio_publicacion"));
                 libro.setEditorial(resultSet.getString("editorial"));
                 libro.setCantidadDisponible(resultSet.getInt("cantidad_disponible"));
                 libros.add(libro);
@@ -44,7 +44,7 @@ public class LibroDAO {
             preparedStatement.setString(2, libro.getTitulo());
             preparedStatement.setString(3, libro.getAutor());
             preparedStatement.setString(4, libro.getEditorial());
-            preparedStatement.setInt(5, libro.getAnioPublicacion());
+            preparedStatement.setString(5, libro.getAnioPublicacion());
             preparedStatement.setInt(6, libro.getCantidadDisponible());
             preparedStatement.executeUpdate();
             return true;
@@ -87,5 +87,17 @@ public class LibroDAO {
             return false;
         }
     }
+
+    public void agregarExistencia(int isbn, int cantidadDisponible) {
+        try {
+            preparedStatement = Conexion.getConnection().prepareStatement("UPDATE libros SET cantidad_disponible = cantidad_disponible + ? WHERE isbn = ?");
+            preparedStatement.setInt(1, cantidadDisponible);
+            preparedStatement.setInt(2, isbn);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 //end of the class
 }
