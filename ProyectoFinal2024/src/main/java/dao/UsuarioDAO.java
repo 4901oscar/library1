@@ -23,8 +23,8 @@ public class UsuarioDAO {
     private final String SELECT_FROM_USUARIOS = "SELECT * FROM usuarios";
    // private final String SELECT_USUARIOS_ACCESO = "SELECT * FROM usuarios WHERE email = ? AND contraseña = ?";
     private final String INSERT_USUARIOS = "INSERT INTO usuarios (nombre, apellido,email,password,telefono,dpi,direccion,rol_id) VALUES(?,?,?,?,?,?,?,?)";
-    private final String UPDATE_USUARIOS = "UPDATE usuarios SET nombre = ?, apellido = ?,email = ?, password = ?, telefono = ?, dpi = ?, direccion = ?, roleID = ? WHERE   idUser = ?";
-    private final String DELETE_USER = "DELETE FROM usuarios WHERE idUser = ?";
+    private final String UPDATE_USUARIOS = "UPDATE usuarios SET nombre = ?, apellido = ?,email = ?, password = ?, telefono = ?, dpi = ?, direccion = ?, rol_id = ? WHERE   id = ?";
+    private final String DELETE_USER = "DELETE FROM usuarios WHERE id = ?";
 
    public List<Usuario> readAll() {
         List<Usuario> listaDeUsuarios = new ArrayList<>();

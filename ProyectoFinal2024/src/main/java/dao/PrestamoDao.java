@@ -21,8 +21,8 @@ public class PrestamoDao {
 
     private PreparedStatement preparedStatement = null;
     private final String SELECT_FROM_PRESTAMO = "SELECT * FROM prestamos";
-    private final String INSERT_INTO_PRESTAMO = "INSERT INTO prestamos (usuario_id, libro_isbn, fecha_prestamo, fecha_vencimiento) VALUES (?, ?, ?, ?)";
-    private final String UPDATE_PRESTAMO = "UPDATE prestamos SET fecha_devolucion = ?, multa = ? WHERE id = ?";
+    private final String INSERT_INTO_PRESTAMO = "INSERT INTO prestamos (usuario_id, libro_id, fecha_prestamo, fecha_devolucion_esperada) VALUES (?, ?, ?, ?)";
+    private final String UPDATE_PRESTAMO = "UPDATE prestamos SET fecha_devolucion_real = ?, multa = ? WHERE id = ?";
 
     public List<Prestamo> readAll() {
         List<Prestamo> prestamos = new ArrayList<>();
@@ -34,10 +34,10 @@ public class PrestamoDao {
                 Prestamo prestamo = new Prestamo();
                 prestamo.setId(preparedStatement.getResultSet().getInt("id"));
                 prestamo.setUsuarioID(preparedStatement.getResultSet().getInt("usuario_id"));
-                prestamo.setIsbn(preparedStatement.getResultSet().getInt("libro_isbn"));
+                prestamo.setIsbn(preparedStatement.getResultSet().getInt("libro_id"));
                 prestamo.setFechaPrestamo(preparedStatement.getResultSet().getDate("fecha_prestamo"));
-                prestamo.setFechaVencimiento(preparedStatement.getResultSet().getDate("fecha_vencimiento"));
-                prestamo.setFechaDevolucion(preparedStatement.getResultSet().getDate("fecha_devolucion"));
+                prestamo.setFechaVencimiento(preparedStatement.getResultSet().getDate("fecha_devolucion_esperada"));
+                prestamo.setFechaDevolucion(preparedStatement.getResultSet().getDate("fecha_devolucion_real"));
                 prestamo.setMulta(preparedStatement.getResultSet().getDouble("multa"));
                 prestamos.add(prestamo);
             }

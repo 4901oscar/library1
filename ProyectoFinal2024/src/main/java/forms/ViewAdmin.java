@@ -259,7 +259,6 @@ public class ViewAdmin extends javax.swing.JFrame {
             }
         });
 
-        TableUsuarios.setBackground(new java.awt.Color(153, 153, 153));
         TableUsuarios.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         TableUsuarios.setFont(new java.awt.Font("Viner Hand ITC", 0, 12)); // NOI18N
         TableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -267,9 +266,17 @@ public class ViewAdmin extends javax.swing.JFrame {
 
             },
             new String [] {
-
+                "ID", "Nombre", "Apellido", "DPI", "Telefono", "Direccion", "Correo Electronico"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         TableUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TableUsuariosMouseClicked(evt);
@@ -284,6 +291,11 @@ public class ViewAdmin extends javax.swing.JFrame {
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton3MouseClicked(evt);
+            }
+        });
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
         jButton3.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -304,12 +316,13 @@ public class ViewAdmin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3))
+                        .addComponent(jButton3)
+                        .addGap(12, 12, 12))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 12, 12))
+                        .addGap(24, 24, 24)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -730,20 +743,6 @@ public class ViewAdmin extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Usuario Eliminado con exito!!!!");
     }//GEN-LAST:event_jButton3MouseClicked
 
-    private void TableUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableUsuariosMouseClicked
-        // TODO add your handling code here:
-        //get the selected row from the table and set the values to the textfields
-        DefaultTableModel model = (DefaultTableModel) TableUsuarios.getModel();
-        int selectedRow = TableUsuarios.getSelectedRow();
-        txtNombreUsuario.setText(model.getValueAt(selectedRow, 1).toString());
-        txtApellidoUsuario.setText(model.getValueAt(selectedRow, 2).toString());
-        txtDPIUsuario.setText(model.getValueAt(selectedRow, 3).toString());
-        txtTelefonoUsuario.setText(model.getValueAt(selectedRow, 4).toString());
-        txtDireccionUsuario.setText(model.getValueAt(selectedRow, 5).toString());
-        txtEmailUsuario.setText(model.getValueAt(selectedRow, 6).toString());
-
-    }//GEN-LAST:event_TableUsuariosMouseClicked
-
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
 
@@ -869,6 +868,23 @@ public class ViewAdmin extends javax.swing.JFrame {
         agregarLibrosPrestadosNoDevueltosTable();
         JOptionPane.showMessageDialog(null, "Libro Devuelto con exito!!!!");
     }//GEN-LAST:event_jButton7MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void TableUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableUsuariosMouseClicked
+        // TODO add your handling code here:
+        //get the selected row from the table and set the values to the textfields
+        DefaultTableModel model = (DefaultTableModel) TableUsuarios.getModel();
+        int selectedRow = TableUsuarios.getSelectedRow();
+        txtNombreUsuario.setText(model.getValueAt(selectedRow, 1).toString());
+        txtApellidoUsuario.setText(model.getValueAt(selectedRow, 2).toString());
+        txtDPIUsuario.setText(model.getValueAt(selectedRow, 3).toString());
+        txtTelefonoUsuario.setText(model.getValueAt(selectedRow, 4).toString());
+        txtDireccionUsuario.setText(model.getValueAt(selectedRow, 5).toString());
+        txtEmailUsuario.setText(model.getValueAt(selectedRow, 6).toString());
+    }//GEN-LAST:event_TableUsuariosMouseClicked
 
     /**
      * @param args the command line arguments

@@ -14,6 +14,7 @@ forms\ViewAdmin$2.class
 forms\LoginAcces$2.class
 forms\ViewClientes$1.class
 dao\LibroDAO.class
+forms\ViewClientes$8.class
 Controlador\PrestamoController.class
 forms\ViewAdmin$5.class
 modelo\Prestamo.class
@@ -52,6 +53,7 @@ forms\LoginAcces$4.class
 forms\ViewAdmin$10.class
 forms\ViewClientes$3.class
 forms\ViewAdmin$3.class
+forms\ViewAdmin$21.class
 forms\RegistrarUsuario.class
 forms\ViewAdmin$16.class
 forms\ViewAdmin$13.class
